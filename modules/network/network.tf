@@ -8,13 +8,23 @@ resource "aws_vpc" "invideo_vpc" {
   }
 }
 
-#creating the private subnet for DB:
-resource "aws_subnet" "invideo_db_subnet" {
+#creating two private subnets for DB:
+resource "aws_subnet" "invideo_db_subnet_1" {
   vpc_id     = aws_vpc.invideo_vpc.id
-  cidr_block = "10.0.0.0/24"
+  cidr_block = "10.0.1.0/24"
 
   tags = {
-    "Name"    = "private_db"
+    "Name"    = "private_db_1"
+    "Project" = "invideo"
+  }
+}
+
+resource "aws_subnet" "invideo_db_subnet_2" {
+  vpc_id     = aws_vpc.invideo_vpc.id
+  cidr_block = "10.0.2.0/24"
+
+  tags = {
+    "Name"    = "private_db_2"
     "Project" = "invideo"
   }
 }
@@ -22,7 +32,7 @@ resource "aws_subnet" "invideo_db_subnet" {
 #creating the private subnet for webservers:
 resource "aws_subnet" "invideo_webserver_subnet" {
   vpc_id     = aws_vpc.invideo_vpc.id
-  cidr_block = "10.0.1.0/24"
+  cidr_block = "10.0.3.0/24"
 
   tags = {
     "Name"    = "private_webserver"
@@ -33,7 +43,7 @@ resource "aws_subnet" "invideo_webserver_subnet" {
 #creating the public subnet for loadbalancer:
 resource "aws_subnet" "invideo_loadbalancer_subnet" {
   vpc_id     = aws_vpc.invideo_vpc.id
-  cidr_block = "10.0.2.0/24"
+  cidr_block = "10.0.4.0/24"
 
   tags = {
     "Name"    = "public"

@@ -3,9 +3,9 @@ variable "vpc_id" {
   description = "Value of the VPC ID inside which RDS shall be created"
 }
 
-variable "db_subnet_id" {
-  type        = string
-  description = "The subnet id for the database - comes from newtorking module"
+variable "db_subnet_ids" {
+  type        = list(string)
+  description = "The subnet ids for the database - comes from newtorking module"
 }
 
 variable "username" {

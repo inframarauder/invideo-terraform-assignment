@@ -1,7 +1,7 @@
 #create subnet group for DB:
 resource "aws_db_subnet_group" "db_subnet_group" {
   name       = "db_subnet_group"
-  subnet_ids = [var.db_subnet_id]
+  subnet_ids = var.db_subnet_ids
 
   tags = {
     Name    = "db_subnet_group"
@@ -41,7 +41,7 @@ resource "aws_db_instance" "postgresdb" {
   instance_class         = "db.t3.micro"
   allocated_storage      = 5
   engine                 = "postgres"
-  engine_version         = "13.1"
+  engine_version         = 13
   username               = var.username
   password               = var.password
   db_subnet_group_name   = aws_db_subnet_group.db_subnet_group.name
