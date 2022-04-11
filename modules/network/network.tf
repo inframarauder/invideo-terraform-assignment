@@ -128,3 +128,4 @@ resource "aws_route_table_association" "invideo_private_rt_assoc" {
   subnet_id      = aws_subnet.invideo_webserver_subnet.id
   route_table_id = aws_route_table.invideo_private_rt.id
 }
+
