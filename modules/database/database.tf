@@ -39,6 +39,7 @@ resource "aws_security_group" "rds_sg" {
 resource "aws_db_instance" "postgresdb" {
   identifier             = "postgresdb"
   instance_class         = "db.t3.micro"
+  multi_az               = true
   allocated_storage      = 5
   engine                 = "postgres"
   engine_version         = 13

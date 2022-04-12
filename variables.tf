@@ -14,3 +14,15 @@ variable "db_password" {
   description = "The password for the database - comes from terraform.tfvars"
   sensitive   = true
 }
+
+variable "db_subnet_1_az" {
+  type        = string
+  description = "The availability zone for the first DB private subnet"
+  default     = "ap-south-1b"
+}
+
+variable "db_subnet_2_az" {
+  type        = string
+  description = "The availability zone for the second DB private subnet"
+  default     = "ap-south-1c"
+}
