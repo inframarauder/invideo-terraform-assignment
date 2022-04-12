@@ -26,3 +26,33 @@ variable "db_subnet_2_az" {
   description = "The availability zone for the second DB private subnet"
   default     = "ap-south-1c"
 }
+
+variable "eks_private_1_az" {
+  type        = string
+  description = "The availability zone for the first EKS private subnet"
+  default     = "ap-south-1b"
+}
+
+variable "eks_private_2_az" {
+  type        = string
+  description = "The availability zone for the second EKS private subnet"
+  default     = "ap-south-1c"
+}
+
+variable "eks_public_1_az" {
+  type        = string
+  description = "The availability zone for the first EKS public subnet"
+  default     = "ap-south-1a"
+}
+
+variable "eks_public_2_az" {
+  type        = string
+  description = "The availability zone for the second EKS public subnet"
+  default     = "ap-south-1b"
+}
+
+variable "cluster_name" {
+  type        = string
+  description = "The name of the EKS cluster"
+  default     = "invideo-eks-cluster"
+}
