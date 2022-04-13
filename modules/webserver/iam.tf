@@ -17,13 +17,10 @@ resource "aws_iam_role" "eks_iam_role" {
   }
 }
 
-resource "aws_iam_policy_attachment" "eks_iam_policy_attachment" {
+resource "aws_iam_role_policy_attachment" "eks_iam_policy_attachment" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy" #AWS Managed Policy
   role       = aws_iam_role.eks_iam_role.name
 
-  tags = {
-    "Project" = "invideo"
-  }
 }
 
 #creating the IAM Role for node group nodes and attaching the IAM Policies for EKS Worker Nodes:
@@ -44,28 +41,22 @@ resource "aws_iam_role" "eks_node_role" {
   }
 }
 
-resource "aws_iam_policy_attachment" "worker_node_policy_attachment" {
+resource "aws_iam_role_policy_attachment" "worker_node_policy_attachment" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy" #AWS Managed Policy
   role       = aws_iam_role.eks_node_role.name
-  tags = {
-    "Project" = "invideo"
-  }
+
 }
 
-resource "aws_iam_policy_attachment" "cni_policy_attachment" {
+resource "aws_iam_role_policy_attachment" "cni_policy_attachment" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy" #AWS Managed Policy
   role       = aws_iam_role.eks_node_role.name
-  tags = {
-    "Project" = "invideo"
-  }
+
 }
 
-resource "aws_iam_policy_attachment" "ecr_readonly_policy_attachment" {
+resource "aws_iam_role_policy_attachment" "ecr_readonly_policy_attachment" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly" #AWS Managed Policy
   role       = aws_iam_role.eks_node_role.name
-  tags = {
-    "Project" = "invideo"
-  }
+
 }
 
 #creating IAM OIDC provider for service account to manager permission for EKS cluster:
@@ -75,7 +66,7 @@ data "tls_certificate" "eks_cert" {
 
 resource "aws_iam_openid_connect_provider" "eks_openid_provider" {
   client_id_list  = ["sts.amazonaws.com"]
-  thumbprint_list = [data.tls_certificateeks_.cert.certificates[0].sha1_fingerprint]
+  thumbprint_list = [data.tls_certificate.eks_cert.certificates[0].sha1_fingerprint]
   url             = aws_eks_cluster.invideo_cluster.identity[0].oidc[0].issuer
 }
 
@@ -89,7 +80,7 @@ data "aws_iam_policy_document" "test_oidc_assume_role_policy" {
 
     condition {
       test     = "StringEquals"
-      variable = "${replace(aws_iam_openid_connect_provider.eks.url, "https://", "")}:sub"
+      variable = "${replace(aws_iam_openid_connect_provider.eks_openid_provider.url, "https://", "")}:sub"
       values   = ["system:serviceaccount:default:aws-service-account"]
     }
 

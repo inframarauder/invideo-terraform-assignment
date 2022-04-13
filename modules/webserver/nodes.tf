@@ -26,9 +26,9 @@ resource "aws_eks_node_group" "private_node_group" {
   }
 
   depends_on = [
-    aws_iam_role_attachment.worker_node_policy_attachment,
-    aws_iam_policy_attachment.cni_policy_attachment,
-    aws_iam_policy_attachment.ecr_readonly_policy_attachment
+    aws_iam_role_policy_attachment.worker_node_policy_attachment,
+    aws_iam_role_policy_attachment.cni_policy_attachment,
+    aws_iam_role_policy_attachment.ecr_readonly_policy_attachment
   ]
 
   tags = {

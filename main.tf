@@ -9,6 +9,18 @@ module "network" {
   cluster_name     = var.cluster_name
 }
 
+module "webserver" {
+  source          = "./modules/webserver"
+  cluster_name    = var.cluster_name
+  eks_subnet_ids  = module.network.eks_subnet_ids
+  node_subnet_ids = module.network.node_subnet_ids
+
+  depends_on = [
+    module.network
+  ]
+}
+
+
 module "database" {
   source        = "./modules/database"
   vpc_id        = module.network.vpc_id
