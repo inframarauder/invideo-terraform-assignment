@@ -10,5 +10,9 @@ resource "aws_eks_cluster" "invideo_cluster" {
   depends_on = [
     aws_iam_policy_attachment.eks_iam_policy_attachment,
   ]
+
+  tags = {
+    "Project" = "invideo"
+  }
 }
 

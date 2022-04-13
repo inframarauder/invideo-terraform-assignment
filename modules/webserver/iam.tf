@@ -11,11 +11,19 @@ resource "aws_iam_role" "eks_iam_role" {
       }
     }]
   })
+
+  tags = {
+    "Project" = "invideo"
+  }
 }
 
 resource "aws_iam_policy_attachment" "eks_iam_policy_attachment" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy" #AWS Managed Policy
   role       = aws_iam_role.eks_iam_role.name
+
+  tags = {
+    "Project" = "invideo"
+  }
 }
 
 #creating the IAM Role for node group nodes and attaching the IAM Policies for EKS Worker Nodes:
@@ -31,19 +39,31 @@ resource "aws_iam_role" "eks_node_role" {
       }
     }]
   })
+  tags = {
+    "Project" = "invideo"
+  }
 }
 
 resource "aws_iam_policy_attachment" "worker_node_policy_attachment" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy" #AWS Managed Policy
   role       = aws_iam_role.eks_node_role.name
+  tags = {
+    "Project" = "invideo"
+  }
 }
-  
+
 resource "aws_iam_policy_attachment" "cni_policy_attachment" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy" #AWS Managed Policy
   role       = aws_iam_role.eks_node_role.name
+  tags = {
+    "Project" = "invideo"
+  }
 }
 
 resource "aws_iam_policy_attachment" "ecr_readonly_policy_attachment" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly" #AWS Managed Policy
   role       = aws_iam_role.eks_node_role.name
+  tags = {
+    "Project" = "invideo"
+  }
 }
