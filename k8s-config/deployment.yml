@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: nginx
 spec:
-  replicas: 3
+  replicas: 3 #as asked in the assignment
   selector:
     matchLabels:
       app: nginx
@@ -16,7 +16,7 @@ spec:
         - name: nginx
           image: nginx:1.20.2
           volumeMounts:
-            - mountPath: /usr/share/nginx/html/index.html
+            - mountPath: /usr/share/nginx/html/index.html #this is needed to return random text from the nginx server
               name: nginx-config
               subPath: index.html
           ports:
