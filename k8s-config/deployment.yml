@@ -35,4 +35,4 @@ spec:
             name: nginx-config
             items:
               - key: index.html
-                path: html
+                path: index.html
