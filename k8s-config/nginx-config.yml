@@ -1,0 +1,29 @@
+#ConfigMap to store the customised html to be returned by nginx server when the server is requested.
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+  labels:
+    app: nginx
+data:
+  html: |
+    <html>
+      <head>
+        <title>Nginx</title>
+      </head>
+      <body>
+        <h1>Welcome to Nginx on Kubernetes!!</h1>
+        <p>This is the customised html returned by nginx server when the server is requested.</p>
+        <p> Here is some random text:</p>
+        <div id='random'></div>
+        <script>
+          let random = document.getElementById('random');
+          let text = '';
+          for (let i = 0; i < 10; i++) {
+            text += String.fromCharCode(Math.floor(Math.random() * 26) + 97);
+          }
+          random.innerHTML = text;
+          </script>
+      </body>
+    </html>
