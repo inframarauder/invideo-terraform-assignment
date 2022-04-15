@@ -18,7 +18,7 @@ resource "aws_iam_role" "eks_iam_role" {
 }
 
 resource "aws_iam_role_policy_attachment" "eks_iam_policy_attachment" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy" #AWS Managed Policy
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy" #AWS Managed Policy
   role       = aws_iam_role.eks_iam_role.name
 
 }
