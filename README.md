@@ -4,9 +4,9 @@ Terraform configuration files to provision the infrastructure for the InVideo as
 
 **Overview of the Infra Created**
 
-- VPC with two public subnets (for EKS), four private subnets (for EKS & RDS), a NAT Gateway, an internet gateway and required route tables.
-- EKS cluster with nodes in private subnet and load balancer in public subnet.
-- RDS PostgreSQL instance in private subnet.
+- VPC with two public subnets (for EKS), four private subnets (for EKS & RDS), a NAT Gateway, an internet gateway and required route tables. (network module)
+- EKS cluster with nodes in private subnet and load balancer in public subnet and relevant cluster IAM roles. (webserver module)
+- RDS PostgreSQL instance in private subnet. (database module)
 
 **PREREQUISITES**
 
@@ -28,10 +28,10 @@ Terraform configuration files to provision the infrastructure for the InVideo as
    `aws eks --region <region> update-kubeconfig --name <eks-cluster-name>`
 7. Now we can deploy the necessary kuberenetes manifests for the InVideo assignment. We can do this by running the following commands :
 
-   `cd k8s-config`
-   `kubectl apply -f deployment.yml` ---> Deployment containing nginx pod configs
-   `kubectl apply -f service.yml` ---> Service containing load balancer configs
-   `kubectl apply -f nginx-config.yml` ---> ConfigMap containing config to return random text
+   - `cd k8s-config`
+   - `kubectl apply -f deployment.yml` ---> Deployment containing nginx pod configs
+   - `kubectl apply -f service.yml` ---> Service containing load balancer configs
+   - `kubectl apply -f nginx-config.yml` ---> ConfigMap containing config to return random text
 
 8. Once the configurations are applied, we can get the url of the loadbalancer by running the following command :
    `kubectl get svc`
