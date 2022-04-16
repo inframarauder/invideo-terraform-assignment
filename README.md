@@ -75,8 +75,13 @@ We must also have the metrics-server installed in the kubernetes cluster for the
 **Results**
 
 - Three tier architecture created:
+
   - Public facing load balancer in public subnet
   - Web servers (EKS Worker Nodes) in private subnet with internet access (enabled via NAT gateway-->IGW) serving static content
   - PostgreSQL database in private subnet
   - HPA to make the infrastructure scale out when CPU usage increases
-  - Security groups to act as firewalls for the database
+  - Security groups to act as firewalls for the database and web servers
+
+  **Screenshot**
+
+  A screenshot of the static webpage returned by the webservers on hitting the loadbalancer url can bee seen in the `static-web-page.png` file
