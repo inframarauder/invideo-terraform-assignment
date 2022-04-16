@@ -7,10 +7,10 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: nginx
-  minReplicas: 1
-  maxReplicas: 4
+  minReplicas: 3
+  maxReplicas: 10
   metrics:
     - type: Resource
       resource:
         name: cpu #scaling based on CPU
-        targetAverageUtilization: 60
+        targetAverageUtilization: 5 #setting low value on purpose - so that HPA scale out action can be seen quickly on running load generator script
